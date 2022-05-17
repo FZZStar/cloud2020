@@ -15,21 +15,21 @@ import javax.annotation.Resource;
 @RestController
 @Slf4j
 public class OrderController {
-    public static final String PAYMENT_URL="http://localhost:8001";
+    public static final String PAYMENT_URL = "http://localhost:8001";
 
     @Resource
     private RestTemplate restTemplate;
 
     @GetMapping("/consumer/payment/create")
-    public CommonResult<Payment> create(Payment payment){
+    public CommonResult<Payment> create(Payment payment) {
 
-        log.info("******"+"\t"+"consumer调用了create");
-        return restTemplate.postForObject(PAYMENT_URL+"/payment/create",payment,CommonResult.class);
+        log.info("******" + "\t" + "consumer调用了create");
+        return restTemplate.postForObject(PAYMENT_URL + "/payment/create", payment, CommonResult.class);
     }
 
     @GetMapping("/consumer/payment/get/{id}")
-    public CommonResult<Payment> getPayment(@PathVariable("id") Long id){
-        log.info("******"+"\t"+"consumer调用了get,id："+id);
-        return restTemplate.getForObject(PAYMENT_URL+"/payment/get/"+id,CommonResult.class);
+    public CommonResult<Payment> getPayment(@PathVariable("id") Long id) {
+        log.info("******" + "\t" + "consumer调用了get,id：" + id);
+        return restTemplate.getForObject(PAYMENT_URL + "/payment/get/" + id, CommonResult.class);
     }
 }
