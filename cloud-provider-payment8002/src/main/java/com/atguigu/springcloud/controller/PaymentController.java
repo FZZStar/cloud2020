@@ -11,39 +11,37 @@ import javax.annotation.Resource;
 
 /**
  * @author fzzstart
- * @create 2022-05-16 15:58
+ * @create 2022-05-17 11:04
  */
 @RestController
 @Slf4j
 public class PaymentController {
-
     @Resource
     private PaymentService paymentService;
 
     @Value("${server.port}")
     private String serverPort;
 
-    @PostMapping(value = "/payment/create")
+    @PostMapping("/payment/create")
     public CommonResult<Integer> create(@RequestBody Payment payment) {
         int result = paymentService.create(payment);
         log.info("******" + "添加成功" + result + "\t 服务端口：" + serverPort + "\t");
-
         if (result > 0) {
-            return new CommonResult<Integer>(200, "插入数据成功,服务端口：" + serverPort, result);
+            return new CommonResult<Integer>(200, "添加成功,服务端口：" + serverPort, result);
         } else {
-            return new CommonResult<Integer>(444, "插入数据失败", null);
+            return new CommonResult<Integer>(444, "添加失败", result);
         }
     }
 
-    @GetMapping(value = "/payment/get/{id}")
-    public CommonResult<Payment> getPaymentById(@PathVariable("id") Long id) {
+    @GetMapping("/payment/get/{id}")
+    public CommonResult getPaymentById(@PathVariable Long id) {
         Payment payment = paymentService.getPaymentById(id);
         log.info("******查询结果" + "\t" + payment + "\t" + "服务端口：" + serverPort);
-
         if (payment != null) {
+
             return new CommonResult(200, "查询成功,服务端口：" + serverPort, payment);
         } else {
-            return new CommonResult<Payment>(444, "没有对应记录，查询" + id, null);
+            return new CommonResult(444, "查询失败,没有对应记录" + id, null);
         }
     }
 }
