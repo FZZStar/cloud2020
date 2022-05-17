@@ -29,13 +29,13 @@ public class PaymentController {
     private DiscoveryClient discoveryClient;
 
     @PostMapping("/payment/create")
-    public CommonResult<Integer> create(@RequestBody Payment payment) {
+    public CommonResult create(@RequestBody Payment payment) {
         int result = paymentService.create(payment);
         log.info("******" + "添加成功" + result + "\t 服务端口：" + serverPort + "\t");
         if (result > 0) {
-            return new CommonResult<Integer>(200, "添加成功,服务端口：" + serverPort, result);
+            return new CommonResult(200, "添加成功,服务端口：" + serverPort, result);
         } else {
-            return new CommonResult<Integer>(444, "添加失败", result);
+            return new CommonResult(444, "添加失败", result);
         }
     }
 
