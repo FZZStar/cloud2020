@@ -54,21 +54,27 @@ public class PaymentController {
     }
 
     @GetMapping("/payment/discovery")
-    public Object discovery(){
+    public Object discovery() {
         List<String> services = discoveryClient.getServices();
-        for (String element : services){
-            System.out.println("******"+element);
+        for (String element : services) {
+            System.out.println("******" + element);
         }
         List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-        for (ServiceInstance element:instances){
-            System.out.println (element.getServiceId()+"\t"+
-                                element.getHost()+"\t"+
-                                element.getPort()+"\t"+
-                                element.getUri()+"\t"+
-                                element.getScheme()+"\t"+
-                                element.getInstanceId()+"\t"+
-                                element.getMetadata());
+        for (ServiceInstance element : instances) {
+            System.out.println(element.getServiceId() + "\t" +
+                    element.getHost() + "\t" +
+                    element.getPort() + "\t" +
+                    element.getUri() + "\t" +
+                    element.getScheme() + "\t" +
+                    element.getInstanceId() + "\t" +
+                    element.getMetadata());
         }
         return this.discoveryClient;
     }
+
+    @GetMapping(value = "/payment/lb")
+    public String getPaymentLB() {
+        return serverPort;
+    }
+
 }
